@@ -15,23 +15,15 @@
     <input type="text" ng-model="fName" value="" placeholder="First Name">
     <input type="text" ng-model="lName" value="" placeholder="Last Name">
     <input type="text" ng-model="city" value="" placeholder="City"><br><br>
-    <!-- <label for="power_name">Select a super power</label><br>
-    <select name="power_name" id="power_name" ng-model="data.power_name">
-      <option value="{{data.invisibility}}">Invisibility</option>
-      <option value="{{data.flight}}">Flight</option>
-      <option value="{{data.superSpeed}}">Super Speed</option>
-      <option value="{{data.heatVision}}">Heat Vision</option>
-      <option value="{{data.superStrength}}">Super Strength</option>
-      <option value="{{data.acceleratedHealing}}">Accelerated Healing</option>
-      <option value="{{data.powerBlast}}">Power Blast</option>
-      <option value="{{data.animalAffinity}}">Animal Affinity</option>
-    </select> -->
-
-
     <select data-ng-options="o.name for o in options" data-ng-model="selectedOption"></select>
-
-
     <button type="submit" ng-click="enterSuperhero()">Submit Hero</button>
+
+    <h2>Stored Heroes</h2>
+    <p>Below are our stored heroes:</p>
+    <p ng-repeat= 'hero in heroes'><b><button ng-click='removeHero($index)'>Remove Hero</button>  {{hero.firstName}} {{hero.lastName}}:</b> City: {{hero.city}} — Superpower: {{hero.superPower}}</p>
+
+
+
   </div>
   </body>
 </html>

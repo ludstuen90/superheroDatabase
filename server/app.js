@@ -10,12 +10,13 @@ var mongoose = require('mongoose');
 var heroModel = require('../models/superheroModels');
 mongoose.connect( 'localhost:27017/Heroes');
 
-
+// Establishes that the localhost base route directs to index.html page in views folder
 app.get('/', function(req,res){
   console.log('Base URL Request Received');
   res.sendFile(path.resolve('views/index.html'));
 });
 
+// Responsible for adding a hero. Receives paramters in heroReceived object
 app.post('/postHero', function(req, res){
 var heroReceived = {
   firstName:  req.body.firstName,
@@ -24,6 +25,7 @@ var heroReceived = {
   superPower: req.body.superPower
 };
 
+// Saves to database according to the superheroModels.js model
 var newHero = heroModel(heroReceived);
 newHero.save();
 res.send(true);
@@ -31,9 +33,35 @@ res.send(true);
   console.log(heroReceived);
 });
 
+// Requests * from the database, returns to client
+app.get('/getHeroes', function(req, res){
+  console.log('in get heroes!');
+  heroModel.find().then(function(data){
+    res.send(data);
+  });
+});
 
-app.listen(3000, function(req, res){
-  console.log('Server is now up on port 3000');
+// Receives information from client to delete.
+// I attempted to use the delete function, but I wasn't able to get it to
+// work. So, to at least make this functionality, the ID is sent back via a
+// post call, and the server deletes from Mongo.
+app.post('/deleteHero', function(req, res){
+  console.log('delete route');
+  console.log( req.body.deleteME);
+heroModel.findOne({_id: req.body.deleteME}, function(err, userResult){
+if(err){
+  console.log(err);
+  res.sendStatus(500);
+}else{
+  heroModel.remove({_id: req.body.deleteME}, function(err){});
+  res.sendStatus(200);
+}
+});
+});//
+
+
+app.listen(4242, function(req, res){
+  console.log('Server is now up on port 4242');
 });
 
 app.use(express.static('public'));
