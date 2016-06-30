@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <meta charset="utf-8">
+    <title>Superhero Database</title>
+    <script type="text/javascript" src="vendors/angular.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="scripts/clientApp.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="vendors/bootstrap.min.css"></link>
+  </head>
+  <body>
+    <div ng-controller='superheroController'>
+    <h1>Superhero Database</h1>
+
+    <p>Fill out the information below to enter a superhero into our database.</p>
+    <input type="text" ng-model="fName" value="" placeholder="First Name">
+    <input type="text" ng-model="lName" value="" placeholder="Last Name">
+    <input type="text" ng-model="city" value="" placeholder="City"><br><br>
+    <!-- <label for="power_name">Select a super power</label><br>
+    <select name="power_name" id="power_name" ng-model="data.power_name">
+      <option value="{{data.invisibility}}">Invisibility</option>
+      <option value="{{data.flight}}">Flight</option>
+      <option value="{{data.superSpeed}}">Super Speed</option>
+      <option value="{{data.heatVision}}">Heat Vision</option>
+      <option value="{{data.superStrength}}">Super Strength</option>
+      <option value="{{data.acceleratedHealing}}">Accelerated Healing</option>
+      <option value="{{data.powerBlast}}">Power Blast</option>
+      <option value="{{data.animalAffinity}}">Animal Affinity</option>
+    </select> -->
+
+
+    <select data-ng-options="o.name for o in options" data-ng-model="selectedOption"></select>
+
+
+    <button type="submit" ng-click="enterSuperhero()">Submit Hero</button>
+  </div>
+  </body>
+</html>
